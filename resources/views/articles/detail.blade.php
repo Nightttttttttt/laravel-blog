@@ -44,17 +44,21 @@
                 @foreach ($article->comments as $comment)
                     <li class="list-group-item">{{ $comment->content }}
                         <a href="{{ url("/comments/delete/$comment->id") }}" class="close">&times;</a>
+                        <div class="small">By {{ $comment->user->name }}, {{ $comment->created_at->diffForHumans() }}</div>
                     </li>
                 @endforeach
             </ul>
 
-            <form action="{{ url('/comments/add') }}" method="post">
-                @csrf
-                <input type="hidden" name="article_id" value="{{ $article->id }}">
-                <textarea name="content" cols="30" rows="3" class="form-control mb-2"
-                    placeholder="Enter your comment here"></textarea>
-                <input type="submit" value="Post Comment" class="btn btn-secondary">
-            </form>
+            @auth
+                <form action="{{ url('/comments/add') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="article_id" value="{{ $article->id }}">
+                    <textarea name="content" cols="30" rows="3" class="form-control mb-2"
+                        placeholder="Enter your comment here"></textarea>
+                    <input type="submit" value="Post Comment" class="btn btn-secondary">
+                </form>
+            @endauth
+
 
         </div>
 

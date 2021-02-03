@@ -23,7 +23,8 @@ class CommentFactory extends Factory
     {
         return [
             'content' => ucwords($this->faker->word),
-            'article_id' => rand(1,5)
+            'article_id' => rand(1,5),
+            'user_id' => rand(1,2)
         ];
     }
 }
